@@ -77,7 +77,7 @@ jobs:
             const result = await github.rest.checks.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: process.env.job_name,
+            name: Java SDK Test workflow for Maven on workflow_dispatch,
             head_sha: process.env.commit_sha,
             status: 'completed',
             conclusion: process.env.conclusion
