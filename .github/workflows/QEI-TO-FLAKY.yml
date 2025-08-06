@@ -22,18 +22,26 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: ✅ Set Static BrowserStack Environment Variables
+      - name: ✅ Set Static BrowserStack Env Vars (Before setup-env)
         run: |
           echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
           echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "BROWSERSTACK_PROJECT_NAME=QEI-FLAKY-JOB" >> $GITHUB_ENV
           echo "BROWSERSTACK_BUILD_NAME=QEI-FLAKY-JOB-BUILD" >> $GITHUB_ENV
+          echo "BROWSERSTACK_PROJECT_NAME=QEI-FLAKY-JOB" >> $GITHUB_ENV
           echo "BROWSERSTACK_SESSION_NAME=FLAKY-JOB-TEST" >> $GITHUB_ENV
 
-      - name: Build and Test with Maven
+      - name: ✅ Setup BrowserStack Environment (Test Observability + Respect Static Build Name)
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          build-name: QEI-FLAKY-JOB-BUILD
+          project-name: QEI-FLAKY-JOB
+
+      - name: 🔧 Build and Test with Maven
         run: mvn clean test "-Dsurefire.suiteXmlFiles=config/sample-flaky-test.xml"
 
-      - name: Archive TestNG Results
+      - name: 📦 Archive TestNG Results
         uses: actions/upload-artifact@v4
         if: always()
         with:
