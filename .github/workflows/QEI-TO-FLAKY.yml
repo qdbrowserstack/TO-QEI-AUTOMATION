@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           build-name: QEI-FLAKY-JOB-BUILD
-          project-name: QEI-FLAKY-JOB
+          project-name: TO-QEI-AUTOMATION
 
       - name: 🔧 Build and Test with Maven
         run: mvn clean test "-Dsurefire.suiteXmlFiles=config/sample-flaky-test.xml"
