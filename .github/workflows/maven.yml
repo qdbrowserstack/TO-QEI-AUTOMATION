@@ -1,9 +1,9 @@
-name: QEI Pass JOB
+name: QEI PASS JOB
 
 on:
   workflow_dispatch:
   pull_request:
-    branches: ["pass_case"]
+    branches: ["master"]
   schedule:
     - cron: '30 6 * * 0'  # Every Sunday at 12:00 PM IST (06:30 UTC)
 
@@ -22,17 +22,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Setup BrowserStack Environment
+      - name: ✅ Set Static BrowserStack Env Vars (Before setup-env)
+        run: |
+          echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
+          echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "BROWSERSTACK_BUILD_NAME=QEI-PASS-JOB-BUILD" >> $GITHUB_ENV
+          echo "BROWSERSTACK_PROJECT_NAME=TO-QEI-AUTOMATION" >> $GITHUB_ENV
+          echo "BROWSERSTACK_SESSION_NAME=PASS-JOB-TEST" >> $GITHUB_ENV
+
+      - name: ✅ Setup BrowserStack Environment (Test Observability + Respect Static Build Name)
         uses: browserstack/github-actions/setup-env@master
         with:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          build-name: QEI-PASS-JOB-BUILD
+          project-name: TO-QEI-AUTOMATION
 
-      - name: Set BrowserStack Environment Variables
-        run: |
-          echo "BROWSERSTACK_PROJECT=QEI FLAKY JOB" >> $GITHUB_ENV
-          echo "BROWSERSTACK_BUILD=Build-QEI-FLAKY-JOB" >> $GITHUB_ENV
-          echo "BROWSERSTACK_NAME=FALKY-JOB-TEST" >> $GITHUB_ENV
+
       - name: Build and Test with Maven
         run: mvn clean test "-Dsurefire.suiteXmlFiles=config/sample-test.testng.xml"
 
@@ -40,5 +46,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: testng-junit-report_test1
+          name: testng-junit-report-test1
           path: target/surefire-reports/junitreports/*.xml
