@@ -27,7 +27,7 @@ jobs:
           echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
           echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
           echo "BROWSERSTACK_BUILD_NAME=QEI-FLAKY-JOB-BUILD" >> $GITHUB_ENV
-          echo "BROWSERSTACK_PROJECT_NAME=QEI-FLAKY-JOB" >> $GITHUB_ENV
+          echo "BROWSERSTACK_PROJECT_NAME=TO-QEI-AUTOMATION" >> $GITHUB_ENV
           echo "BROWSERSTACK_SESSION_NAME=FLAKY-JOB-TEST" >> $GITHUB_ENV
 
       - name: ✅ Setup BrowserStack Environment (Test Observability + Respect Static Build Name)
