@@ -28,11 +28,12 @@ jobs:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-      - name: Set BrowserStack Environment Variables
+      - name: Set BrowserStack Environment Variables (Static)
         run: |
-          echo "BROWSERSTACK_PROJECT=QEI FLAKY JOB" >> $GITHUB_ENV
-          echo "BROWSERSTACK_BUILD=Build-QEI-FLAKY-JOB" >> $GITHUB_ENV
-          echo "BROWSERSTACK_NAME=FALKY-JOB-TEST" >> $GITHUB_ENV
+          echo "BROWSERSTACK_PROJECT_NAME=QEI-FLAKY-JOB" >> $GITHUB_ENV
+          echo "BROWSERSTACK_BUILD_NAME=QEI-FLAKY-JOB-BUILD" >> $GITHUB_ENV
+          echo "BROWSERSTACK_SESSION_NAME=FLAKY-JOB-TEST" >> $GITHUB_ENV
+
       - name: Build and Test with Maven
         run: mvn clean test "-Dsurefire.suiteXmlFiles=config/sample-flaky-test.xml"
 
