@@ -22,7 +22,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: ✅ Set Static BrowserStack Env Vars (Before setup-env)
+      - name: Set Static BrowserStack Env Vars (Before setup-env)
         run: |
           echo "BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}" >> $GITHUB_ENV
           echo "BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}" >> $GITHUB_ENV
@@ -30,7 +30,7 @@ jobs:
           echo "BROWSERSTACK_PROJECT_NAME=TO-QEI-AUTOMATION" >> $GITHUB_ENV
           echo "BROWSERSTACK_SESSION_NAME=FLAKY-JOB-TEST" >> $GITHUB_ENV
 
-      - name: ✅ Setup BrowserStack Environment (Test Observability + Respect Static Build Name)
+      - name: Setup BrowserStack Environment (Test Observability + Respect Static Build Name)
         uses: browserstack/github-actions/setup-env@master
         with:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
