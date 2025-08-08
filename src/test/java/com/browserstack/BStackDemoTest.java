@@ -9,6 +9,6 @@ public class BStackDemoTest extends BrowserStackRemoteTest {
     @Test
     public void addProductToCart() throws Exception {
         driver.get("https://www.bstackdemo.com");
-        Assert.assertTrue(driver.getTitle().matches("QEI"));
+        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
     }
 }
